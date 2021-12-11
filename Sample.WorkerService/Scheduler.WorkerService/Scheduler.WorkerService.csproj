@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Scheduler.WorkerService-984C9A2D-3B6E-41F8-B4A1-1EB4C68A094F</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Bogus" Version="34.0.1" />
+	<PackageReference Include="Hangfire" Version="1.7.27" />
+	<PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+  </ItemGroup>
+</Project>
