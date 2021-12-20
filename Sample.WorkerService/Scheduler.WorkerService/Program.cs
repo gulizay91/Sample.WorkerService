@@ -1,7 +1,13 @@
+using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Scheduler.WorkerService.Hangfire;
 
+var configuration = new ConfigurationBuilder()
+        .AddEnvironmentVariables()
+        .AddCommandLine(args)
+        .AddJsonFile("appsettings.json")
+        .Build();
 
 IHost host = Host.CreateDefaultBuilder(args)
                         .UseWindowsService()
@@ -13,7 +19,6 @@ IHost host = Host.CreateDefaultBuilder(args)
                             //        .AddDebug()
                             //        .AddConsole()
                             //);
-                            var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
                             services.AddHangfireConfigurationServices(configuration);
                         })
                         .ConfigureWebHostDefaults(webBuilder =>
@@ -23,7 +28,11 @@ IHost host = Host.CreateDefaultBuilder(args)
                                 app.AddHangfireConfiguration();
                                 app.UseHealthChecks("/hc");
                             });
-                            webBuilder.UseUrls("http://localhost:9600", "https://localhost:9601");
+
+                            //string[] urls = new string[] { "http://localhost:9600", "https://localhost:9601" };
+                            string[] urls = configuration.GetSection("HangfireConfig:Urls").Get<string[]>();
+                            Guard.Against.Null<string[]>(urls, nameof(urls));
+                            webBuilder.UseUrls(urls);
                         }).Build();
 
 await host.RunAsync();

@@ -13,7 +13,9 @@ KeyWords:
 ## About The Project
 Sample hangfire service by worker service
 
-![Hangfire dashboard and console log](/hangfire.png?raw=true "hangfire dashboard")
+![Hangfire dashboard and console log](/hangfire00.png?raw=true "hangfire dashboard")
+##
+![System tray icon for Reminder Notify](/hangfire01.png?raw=true "System tray icon")
 
 ## License
 

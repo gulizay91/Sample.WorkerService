@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using Ardalis.GuardClauses;
+using Hangfire;
 using Hangfire.Storage.SQLite;
 using Microsoft.AspNetCore.Builder;
 
@@ -22,9 +23,19 @@ namespace Scheduler.WorkerService.Hangfire
 
             services.AddHangfireServer();
 
+            HangfireConfig hangfireConfig = configuration.GetSection("HangfireConfig").Get<HangfireConfig>();
+            Guard.Against.Null<HangfireConfig>(hangfireConfig, nameof(hangfireConfig));
+
             FireAndForgetJobs.GenerateFakeEmployees();
-            ReccuringJobs.SendThanksMail();
-            ReccuringJobs.RemindDrinkWater();
+
+            var sendThanksMailConfig = hangfireConfig.Jobs.Where(r => r.Name == "SendThanksMail").FirstOrDefault();
+            Guard.Against.Null<Jobs>(sendThanksMailConfig, nameof(sendThanksMailConfig));
+            if(sendThanksMailConfig.Enable)
+                ReccuringJobs.SendThanksMail(sendThanksMailConfig.CronExpression);
+
+            var remindDrinkWaterConfig = hangfireConfig.Jobs.Where(r => r.Name == "RemindDrinkWater").FirstOrDefault();
+            Guard.Against.Null<Jobs>(remindDrinkWaterConfig, nameof(remindDrinkWaterConfig));
+            ReccuringJobs.RemindDrinkWater(remindDrinkWaterConfig.CronExpression);
 
             return services;
         }

@@ -8,20 +8,16 @@ namespace Scheduler.WorkerService.Hangfire
     internal static class ReccuringJobs
     {
         //[AutomaticRetry(Attempts = 2)]
-        internal static Task SendThanksMail()
+        internal static Task SendThanksMail(string? cronExpression = "*/2 * * * *")
         {
-            //var cronExpression = "0 1 * * *";
-            var cronExpression = "*/2 * * * *";
             RecurringJob.AddOrUpdate(nameof(SendThanksMail), () => ReccuringJobProcess.SendThanksMail(), cronExpression);
             return Task.CompletedTask;
         }
 
         //[AutomaticRetry(Attempts = 2)]
         //[DisableConcurrentExecution(2)]
-        internal static Task RemindDrinkWater()
+        internal static Task RemindDrinkWater(string? cronExpression = "*/1 * * * *")
         {
-            //var cronExpression = "0 1 * * *";
-            var cronExpression = "*/1 * * * *";
             RecurringJob.AddOrUpdate(nameof(RemindDrinkWater), () => ReccuringJobProcess.RemindDrinkWater(), cronExpression);
             return Task.CompletedTask;
         }
