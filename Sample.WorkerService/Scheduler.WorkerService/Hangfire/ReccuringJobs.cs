@@ -47,6 +47,8 @@ namespace Scheduler.WorkerService.Hangfire
             string text = "get up and drink water!";
 
             Console.WriteLine(text);
+
+            // ps: only consoleapp, system tray icon not working with windows service
             NotifyIcon icon = new();
             //icon.Icon = new System.Drawing.Icon("./ remind.ico");
             icon.Icon = new Icon(SystemIcons.Information, 40, 40);

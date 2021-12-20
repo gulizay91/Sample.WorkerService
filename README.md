@@ -17,6 +17,11 @@ Sample hangfire service by worker service
 ##
 ![System tray icon for Reminder Notify](/hangfire01.png?raw=true "System tray icon")
 
+## Create Windows Service
+```bash
+sc.exe create SchedulerWorkerService binPath="<publish folder>\Scheduler.WorkerService.exe"
+```
+
 ## License
 
 MIT

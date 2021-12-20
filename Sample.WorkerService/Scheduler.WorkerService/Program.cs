@@ -9,6 +9,7 @@ var configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json")
         .Build();
 
+// ps: sc.exe create SchedulerWorkerService binPath="<publish folder>\Scheduler.WorkerService.exe"
 IHost host = Host.CreateDefaultBuilder(args)
                         .UseWindowsService()
                         .ConfigureServices(services =>
