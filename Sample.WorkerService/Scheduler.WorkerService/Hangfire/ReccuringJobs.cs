@@ -1,5 +1,7 @@
 ﻿using Hangfire;
 using Scheduler.WorkerService.Faker;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Scheduler.WorkerService.Hangfire
 {
@@ -49,9 +51,15 @@ namespace Scheduler.WorkerService.Hangfire
             string text = "get up and drink water!";
 
             Console.WriteLine(text);
-
-            //TaskbarIcon taskbarIcon = new();
-            //taskbarIcon.ShowBalloonTip(title, text, BalloonIcon.Warning);
+            NotifyIcon icon = new();
+            //icon.Icon = new System.Drawing.Icon("./ remind.ico");
+            icon.Icon = new Icon(SystemIcons.Information, 40, 40);
+            icon.Visible = true;
+            icon.BalloonTipText = text;
+            icon.BalloonTipTitle = title;
+            icon.BalloonTipIcon = ToolTipIcon.Info;
+            icon.ShowBalloonTip(2000);
+            //Console.Read();
         }
     }
 }
